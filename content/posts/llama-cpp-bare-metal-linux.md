@@ -115,28 +115,3 @@ Q4_K_M offers the best quality-to-memory tradeoff for 7B–8B models on 12GB RAM
 
 **Q: When should I remove the --mlock flag?**
 Remove it if model loading takes more than 4–5 minutes, which indicates insufficient RAM to hold the model in physical memory.
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "Running llama.cpp Bare-Metal on Linux",
-  "description": "Guide to compiling and running llama.cpp optimized with AVX-512 on bare-metal Linux, bypassing Ollama, with quantization and CLI inference on CPU.",
-  "author": {
-    "@type": "Person",
-    "name": "Ben Santora",
-    "url": "https://bensantora.com"
-  },
-  "datePublished": "2025-01-01",  // change to actual publish date
-  "dateModified": "2026-03-02",   // update as needed
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://bensantora.com/#bare-metal-llama"
-  },
-  "publisher": {
-    "@type": "Person",
-    "name": "Ben Santora"
-  },
-  "keywords": "llama.cpp, bare-metal, AVX-512, Linux optimization, CPU inference, quantization, FOSS"
-}
-</script>
