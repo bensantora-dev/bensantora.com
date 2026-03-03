@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FFmpeg Mandelbrot Generator | Ben Santora</title>
+    <meta name="description" content="">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": ["Article", "TechArticle"],
+      "headline": "\"FFmpeg Mandelbrot Generator\"",
+      "description": "null",
+      "author": {
+        "@type": "Person",
+        "name": "Ben Santora"
+      },
+      "datePublished": "2026-01-20",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http:\/\/localhost:1313\/posts\/ffmpeg-mandelbrot\/"
+      },
+      "keywords": "llama.cpp, bare metal inference, CPU-only LLM, AVX-512, Linux, GGUF, local AI, Ollama alternative, build from source, quantization"
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the difference between llama.cpp and Ollama?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "llama.cpp is the raw C++ inference engine. Ollama wraps it with a management layer and background service, adding overhead and abstracting hardware control."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why compile llama.cpp from source instead of using a prebuilt binary?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Compiling with GGML_NATIVE=ON auto-enables AVX2 and AVX-512 on supported hardware, yielding better throughput than generic binaries built for broad compatibility."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What hardware is required to run 7B-8B models on CPU-only Linux?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Intel 11th Gen or AMD Ryzen 5000 series or newer, 12GB+ RAM, and any modern Linux distribution. No GPU is required."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I check if my CPU supports AVX-512?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Run: lscpu | grep -E --color=always 'avx(2|512)'. Look for avx512_vnni in the output for AI-optimized instruction support."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the best quantization for a 12GB RAM system?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Q4_K_M (4-bit quantization) provides the best balance of output quality and memory efficiency for 7B-8B parameter models on 12GB RAM."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "When should I remove the --mlock flag?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Remove --mlock if model loading takes longer than 4-5 minutes. This indicates the system lacks sufficient free RAM to pin the model, risking a hard failure."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <style>
+        :root {
+            --terminal-green: #98c9a3;
+            --text: #e0e0e0;
+            --bg: #0d0d0d;
+            --card-bg: #1e1e1e;
+            --card-border: #2a2a2a;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.8;
+            color: var(--text);
+            background: var(--bg);
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+            font-size: 1.1rem;
+        }
+        header {
+            border-bottom: 3px solid var(--terminal-green);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        h1.site-title { margin: 0; color: var(--terminal-green); font-size: 2.5rem; }
+        h1.post-title { color: var(--terminal-green); font-size: 1.8rem; line-height: 1.3; margin-bottom: 0.5rem; }
+        h2 { color: var(--terminal-green); border-left: 5px solid var(--terminal-green); padding-left: 15px; margin-top: 2.5rem; }
+        h3 { color: var(--terminal-green); padding-left: 22px; }
+        a { color: var(--terminal-green); text-decoration: none; font-weight: bold; }
+        a:hover { text-decoration: underline; color: white; }
+        .post-meta { color: #666; font-size: 0.95rem; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--card-border); }
+        p { margin-bottom: 1.2rem; }
+        hr { border: none; border-top: 1px solid var(--card-border); margin: 2.5rem 0; }
+        pre {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-left: 4px solid var(--terminal-green);
+            padding: 16px 20px;
+            overflow-x: auto;
+            border-radius: 4px;
+            margin: 1.5rem 0;
+        }
+        code { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; font-size: 0.9rem; color: var(--terminal-green); }
+        pre code { color: var(--text); }
+        strong { color: white; }
+        footer { margin-top: 50px; font-size: 1rem; color: #555; border-top: 1px solid #2a2a2a; padding-top: 10px; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="site-title">Ben Santora</h1>
+        <p><strong>Linux Operating System</strong></p>
+    </header>
+
+    <main>
+        <h1 class="post-title">FFmpeg Mandelbrot Generator</h1>
+        <div class="post-meta">January 20, 2026 &mdash; Ben Santora</div>
+        <h1 id="ffmpeg-has-a-mandelbrot-generator-built-in">FFmpeg Has a Mandelbrot Generator Built In</h1>
+<p>By Ben Santora</p>
+<p>Most people use FFmpeg to convert video files. Few know it ships with a virtual device system called <strong>lavfi</strong> that generates video from pure math — no input file, no external tools, nothing to install. It&rsquo;s already on your system.</p>
+<hr>
+<h2 id="check-your-ffmpeg-install">Check Your FFmpeg Install</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ffmpeg -version
+</span></span></code></pre></div><p>If FFmpeg is installed, lavfi is included. That&rsquo;s all you need.</p>
+<hr>
+<h2 id="generate-a-mandelbrot-and-save-it">Generate a Mandelbrot and Save It</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ffmpeg -f lavfi -i <span style="color:#e6db74">&#34;mandelbrot=size=640x360:rate=24:maxiter=100&#34;</span> -t <span style="color:#ae81ff">30</span> -c:v libx264 -crf <span style="color:#ae81ff">23</span> mandelbrot.mp4
+</span></span></code></pre></div><p>What each parameter does:</p>
+<ul>
+<li><code>size=640x360</code> — resolution, keep it low for fast renders</li>
+<li><code>rate=24</code> — 24fps</li>
+<li><code>maxiter=100</code> — iteration depth per pixel, this is your biggest performance lever</li>
+<li><code>-t 30</code> — 30 seconds of output then stop</li>
+<li><code>-crf 23</code> — standard x264 quality</li>
+</ul>
+<p>Watch the fps counter in the terminal. On a CPU-only machine <code>maxiter=100</code> keeps it moving. Drop to <code>50</code> if it&rsquo;s still slow. Raise to <code>500+</code> for more fractal detail at the cost of render time.</p>
+<hr>
+<h2 id="play-it-directly--no-file-written">Play It Directly — No File Written</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ffplay -f lavfi <span style="color:#e6db74">&#34;mandelbrot=size=640x360:rate=24:maxiter=100&#34;</span>
+</span></span></code></pre></div><p><code>ffplay</code> is FFmpeg&rsquo;s built-in player. Live output, no mp4, no VLC needed. Kill with <code>q</code>.</p>
+<hr>
+<h2 id="add-color-rotation">Add Color Rotation</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ffmpeg -f lavfi -i <span style="color:#e6db74">&#34;mandelbrot=size=640x360:rate=24:maxiter=100&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -vf <span style="color:#e6db74">&#34;hue=h=t*20&#34;</span> -t <span style="color:#ae81ff">30</span> -c:v libx264 -crf <span style="color:#ae81ff">23</span> mandelbrot_color.mp4
+</span></span></code></pre></div><p><code>hue=h=t*20</code> rotates the color spectrum over time as a filtergraph applied on top of the raw lavfi output. <code>t</code> is elapsed time in seconds.</p>
+<hr>
+<h2 id="watch-it-as-a-spectrum--fft-view">Watch It as a Spectrum — FFT View</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ffplay -showmode <span style="color:#ae81ff">1</span> mandelbrot.mp4
+</span></span></code></pre></div><p>Displays the frequency content of the audio track. No audio here, but use <code>-showmode 1</code> on any music file to see sound as physics.</p>
+<hr>
+<h2 id="the-bigger-point">The Bigger Point</h2>
+<p>FFmpeg&rsquo;s lavfi system includes other sources worth exploring:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ffmpeg -f lavfi -i testsrc2 -t <span style="color:#ae81ff">10</span> test.mp4        <span style="color:#75715e"># test pattern</span>
+</span></span><span style="display:flex;"><span>ffmpeg -f lavfi -i <span style="color:#e6db74">&#34;sine=frequency=440&#34;</span> -t <span style="color:#ae81ff">5</span> tone.wav  <span style="color:#75715e"># pure sine wave</span>
+</span></span></code></pre></div><p>The tools that do the actual work have been on your system the whole time. The GUIs were just hiding them.</p>
+<hr>
+<p><em>Tested on Debian, CrunchBang++. FFmpeg 6.x. CPU-only, no GPU required.</em></p>
+
+    </main>
+
+    <footer>
+        <p>Ben Santora | &copy; 2026</p>
+        <p><a href="https://github.com/bensantora-tech" target="_blank" rel="noopener noreferrer">github.com/bensantora-tech</a></p>
+    </footer>
+</body>
+</html>
