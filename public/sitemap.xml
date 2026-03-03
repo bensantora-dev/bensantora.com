@@ -2,13 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:42759/</loc>
+    <loc>http://localhost:44719/</loc>
     <lastmod>2026-01-20T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:42759/posts/llama-cpp-bare-metal-linux/</loc>
+    <loc>http://localhost:44719/posts/llama-cpp-bare-metal-linux/</loc>
     <lastmod>2026-01-20T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:42759/posts/</loc>
+    <loc>http://localhost:44719/posts/</loc>
     <lastmod>2026-01-20T00:00:00+00:00</lastmod>
   </url>
 </urlset>

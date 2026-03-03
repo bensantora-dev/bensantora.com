@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Ben Santora</title>
-    <link>http://localhost:42759/</link>
+    <link>http://localhost:44719/</link>
     <description>Recent content on Ben Santora</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 20 Jan 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:42759/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:44719/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>How to Run llama.cpp Bare-Metal on Linux for Maximum CPU Inference Performance</title>
-      <link>http://localhost:42759/posts/llama-cpp-bare-metal-linux/</link>
+      <link>http://localhost:44719/posts/llama-cpp-bare-metal-linux/</link>
       <pubDate>Tue, 20 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:42759/posts/llama-cpp-bare-metal-linux/</guid>
+      <guid>http://localhost:44719/posts/llama-cpp-bare-metal-linux/</guid>
       <description>Compiling llama.cpp from source with native CPU optimizations eliminates wrapper overhead and maximizes inference performance on Linux systems without dedicated GPUs. This guide walks through every step — from auditing your hardware to running your first local conversation.&#xA;What Is the Difference Between llama.cpp and Ollama? llama.cpp is the inference engine: a raw C++ implementation of the Llama architecture that performs the core matrix math of AI inference directly on your hardware.</description>
     </item>
   </channel>
