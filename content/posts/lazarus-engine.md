@@ -38,7 +38,6 @@ On hardware with 2GB of RAM or a mechanical hard drive, binary size and disk I/O
 CGO_ENABLED=0 go build -ldflags="-s -w" -trimpath -o lazarus-audit
 upx --brute lazarus-audit
 ```
-
 ---
 
 ## The "Lazarus-Audit" Logic
@@ -62,26 +61,39 @@ func main() {
 
 	// 1. Audit CPU Architecture & Model
 	cpuModel := "Unknown CPU"
+	hasAES := false
+	hasAVX := false
+
 	if file, err := os.Open("/proc/cpuinfo"); err == nil {
 		scanner := bufio.NewScanner(file)
 		for scanner.Scan() {
-			if strings.HasPrefix(scanner.Text(), "model name") {
-				cpuModel = strings.TrimSpace(strings.Split(scanner.Text(), ":")[1])
-				break
+			line := scanner.Text()
+			// Get the Model Name
+			if strings.HasPrefix(line, "model name") {
+				cpuModel = strings.TrimSpace(strings.Split(line, ":")[1])
+			}
+			// Check for the "Instruction Flags" (Your original logic)
+			if strings.HasPrefix(line, "flags") {
+				if strings.Contains(line, "aes") {
+					hasAES = true
+				}
+				if strings.Contains(line, "avx") {
+					hasAVX = true
+				}
 			}
 		}
 		file.Close()
 	}
 	fmt.Printf("[CPU] %s (%s)\n", cpuModel, runtime.GOARCH)
 
-	// 2. Audit RAM (Converts kB to GB)
+	// 2. Audit RAM
 	totalRAM := "Unknown"
 	if file, err := os.Open("/proc/meminfo"); err == nil {
 		scanner := bufio.NewScanner(file)
-		if scanner.Scan() { // First line is MemTotal
+		if scanner.Scan() {
 			parts := strings.Fields(scanner.Text())
 			if len(parts) >= 2 {
-				ramKB := 0
+				var ramKB int64
 				fmt.Sscanf(parts[1], "%d", &ramKB)
 				totalRAM = fmt.Sprintf("%.2f GB", float64(ramKB)/1024/1024)
 			}
@@ -90,17 +102,24 @@ func main() {
 	}
 	fmt.Printf("[RAM] %s\n", totalRAM)
 
-	// 3. Audit Kernel (The "Brain" version)
+	// 3. Audit Kernel
 	kernel := "Unknown"
 	if dat, err := os.ReadFile("/proc/sys/kernel/osrelease"); err == nil {
 		kernel = strings.TrimSpace(string(dat))
 	}
 	fmt.Printf("[OS ] Linux Kernel %s\n", kernel)
 
-	// ... Keep your existing [STATUS: GOLD/BRONZE] logic here ...
+	// 4. THE CLASSIFICATION (The Core of your Mission)
+	fmt.Println("----------------------------------------")
+	if hasAES && hasAVX {
+		fmt.Println("[STATUS] GOLD: Modern Instruction sets detected.")
+		fmt.Println("[ACTION] This machine can handle modern FOSS effortlessly.")
+	} else {
+		fmt.Println("[STATUS] BRONZE: Legacy Hardware detected.")
+		fmt.Println("[ACTION] Stick to minimalist tools (ffplay, aplay, busybox).")
+	}
 }
 ```
-
 ## Expanding the Mission to the Edge
 
 Resourceful Computing isn't limited to laptops. By leveraging Go's cross-compilation, the Lazarus Engine can target **Edge Devices**—old routers, discarded NAS boxes, and early IoT hubs running on ARM or MIPS. These devices are often orphaned by manufacturers, but with a static binary, they can be repurposed as VPN gateways or ad-blockers, staying out of the waste stream.

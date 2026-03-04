@@ -166,31 +166,77 @@
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;fmt&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;golang.org/x/sys/cpu&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;bufio&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;os&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;runtime&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;strings&#34;</span>
 </span></span><span style="display:flex;"><span>)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;--- [LAZARUS ENGINE: HARDWARE AUDIT] ---&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;--- [LAZARUS ENGINE: HARDWARE AUDIT] ---&#34;</span>)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Direct register probing without external dependencies
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">hasAVX</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">cpu</span>.<span style="color:#a6e22e">X86</span>.<span style="color:#a6e22e">HasAVX</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">hasSSE42</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">cpu</span>.<span style="color:#a6e22e">X86</span>.<span style="color:#a6e22e">HasSSE42</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">hasVNNI</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">cpu</span>.<span style="color:#a6e22e">X86</span>.<span style="color:#a6e22e">HasAVX512VNNI</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 1. Audit CPU Architecture &amp; Model
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">cpuModel</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;Unknown CPU&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">hasAES</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">hasAVX</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">false</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Grading the hardware for Resourceful Utility
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">hasVNNI</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;[STATUS: GOLD] Modern AI/Vector units found. High utility.&#34;</span>)
-</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">hasAVX</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;[STATUS: SILVER] AVX detected. Ideal for Pro-Audio/Media.&#34;</span>)
-</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">hasSSE42</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;[STATUS: BRONZE] Basic SSE instructions found. Solid CLI/Web.&#34;</span>)
-</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;[STATUS: LEGACY] Minimalist instruction set. Ideal for dedicated automation.&#34;</span>)
-</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">file</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Open</span>(<span style="color:#e6db74">&#34;/proc/cpuinfo&#34;</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">scanner</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">bufio</span>.<span style="color:#a6e22e">NewScanner</span>(<span style="color:#a6e22e">file</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">scanner</span>.<span style="color:#a6e22e">Scan</span>() {
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">line</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">scanner</span>.<span style="color:#a6e22e">Text</span>()
+</span></span><span style="display:flex;"><span>			<span style="color:#75715e">// Get the Model Name
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">HasPrefix</span>(<span style="color:#a6e22e">line</span>, <span style="color:#e6db74">&#34;model name&#34;</span>) {
+</span></span><span style="display:flex;"><span>				<span style="color:#a6e22e">cpuModel</span> = <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">TrimSpace</span>(<span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">Split</span>(<span style="color:#a6e22e">line</span>, <span style="color:#e6db74">&#34;:&#34;</span>)[<span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>			<span style="color:#75715e">// Check for the &#34;Instruction Flags&#34; (Your original logic)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">HasPrefix</span>(<span style="color:#a6e22e">line</span>, <span style="color:#e6db74">&#34;flags&#34;</span>) {
+</span></span><span style="display:flex;"><span>				<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">Contains</span>(<span style="color:#a6e22e">line</span>, <span style="color:#e6db74">&#34;aes&#34;</span>) {
+</span></span><span style="display:flex;"><span>					<span style="color:#a6e22e">hasAES</span> = <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>				}
+</span></span><span style="display:flex;"><span>				<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">Contains</span>(<span style="color:#a6e22e">line</span>, <span style="color:#e6db74">&#34;avx&#34;</span>) {
+</span></span><span style="display:flex;"><span>					<span style="color:#a6e22e">hasAVX</span> = <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>				}
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">Close</span>()
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;[CPU] %s (%s)\n&#34;</span>, <span style="color:#a6e22e">cpuModel</span>, <span style="color:#a6e22e">runtime</span>.<span style="color:#a6e22e">GOARCH</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 2. Audit RAM
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">totalRAM</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;Unknown&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">file</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Open</span>(<span style="color:#e6db74">&#34;/proc/meminfo&#34;</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">scanner</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">bufio</span>.<span style="color:#a6e22e">NewScanner</span>(<span style="color:#a6e22e">file</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">scanner</span>.<span style="color:#a6e22e">Scan</span>() {
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">parts</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">Fields</span>(<span style="color:#a6e22e">scanner</span>.<span style="color:#a6e22e">Text</span>())
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">parts</span>) <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">2</span> {
+</span></span><span style="display:flex;"><span>				<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">ramKB</span> <span style="color:#66d9ef">int64</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sscanf</span>(<span style="color:#a6e22e">parts</span>[<span style="color:#ae81ff">1</span>], <span style="color:#e6db74">&#34;%d&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">ramKB</span>)
+</span></span><span style="display:flex;"><span>				<span style="color:#a6e22e">totalRAM</span> = <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%.2f GB&#34;</span>, float64(<span style="color:#a6e22e">ramKB</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">1024</span><span style="color:#f92672">/</span><span style="color:#ae81ff">1024</span>)
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">Close</span>()
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;[RAM] %s\n&#34;</span>, <span style="color:#a6e22e">totalRAM</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 3. Audit Kernel
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">kernel</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;Unknown&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">dat</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">ReadFile</span>(<span style="color:#e6db74">&#34;/proc/sys/kernel/osrelease&#34;</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">kernel</span> = <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">TrimSpace</span>(string(<span style="color:#a6e22e">dat</span>))
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;[OS ] Linux Kernel %s\n&#34;</span>, <span style="color:#a6e22e">kernel</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 4. THE CLASSIFICATION (The Core of your Mission)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;----------------------------------------&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">hasAES</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">hasAVX</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;[STATUS] GOLD: Modern Instruction sets detected.&#34;</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;[ACTION] This machine can handle modern FOSS effortlessly.&#34;</span>)
+</span></span><span style="display:flex;"><span>	} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;[STATUS] BRONZE: Legacy Hardware detected.&#34;</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;[ACTION] Stick to minimalist tools (ffplay, aplay, busybox).&#34;</span>)
+</span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><hr>
-<h2 id="expanding-the-mission-to-the-edge">Expanding the Mission to the Edge</h2>
+</span></span></code></pre></div><h2 id="expanding-the-mission-to-the-edge">Expanding the Mission to the Edge</h2>
 <p>Resourceful Computing isn&rsquo;t limited to laptops. By leveraging Go&rsquo;s cross-compilation, the Lazarus Engine can target <strong>Edge Devices</strong>—old routers, discarded NAS boxes, and early IoT hubs running on ARM or MIPS. These devices are often orphaned by manufacturers, but with a static binary, they can be repurposed as VPN gateways or ad-blockers, staying out of the waste stream.</p>
 <hr>
 <h2 id="resourceful-vs-bloated-the-benchmarks">Resourceful vs. Bloated: The Benchmarks</h2>
