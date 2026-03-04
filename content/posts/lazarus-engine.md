@@ -50,32 +50,56 @@ The first step in restoration is an honest audit. `lazarus-audit` is a zero-depe
 package main
 
 import (
-    "fmt"
-    "golang.org/x/sys/cpu"
+	"bufio"
+	"fmt"
+	"os"
+	"runtime"
+	"strings"
 )
 
 func main() {
-    fmt.Println("--- [LAZARUS ENGINE: HARDWARE AUDIT] ---")
+	fmt.Println("--- [LAZARUS ENGINE: HARDWARE AUDIT] ---")
 
-    // Direct register probing without external dependencies
-    hasAVX := cpu.X86.HasAVX
-    hasSSE42 := cpu.X86.HasSSE42
-    hasVNNI := cpu.X86.HasAVX512VNNI
+	// 1. Audit CPU Architecture & Model
+	cpuModel := "Unknown CPU"
+	if file, err := os.Open("/proc/cpuinfo"); err == nil {
+		scanner := bufio.NewScanner(file)
+		for scanner.Scan() {
+			if strings.HasPrefix(scanner.Text(), "model name") {
+				cpuModel = strings.TrimSpace(strings.Split(scanner.Text(), ":")[1])
+				break
+			}
+		}
+		file.Close()
+	}
+	fmt.Printf("[CPU] %s (%s)\n", cpuModel, runtime.GOARCH)
 
-    // Grading the hardware for Resourceful Utility
-    if hasVNNI {
-        fmt.Println("[STATUS: GOLD] Modern AI/Vector units found. High utility.")
-    } else if hasAVX {
-        fmt.Println("[STATUS: SILVER] AVX detected. Ideal for Pro-Audio/Media.")
-    } else if hasSSE42 {
-        fmt.Println("[STATUS: BRONZE] Basic SSE instructions found. Solid CLI/Web.")
-    } else {
-        fmt.Println("[STATUS: LEGACY] Minimalist instruction set. Ideal for dedicated automation.")
-    }
+	// 2. Audit RAM (Converts kB to GB)
+	totalRAM := "Unknown"
+	if file, err := os.Open("/proc/meminfo"); err == nil {
+		scanner := bufio.NewScanner(file)
+		if scanner.Scan() { // First line is MemTotal
+			parts := strings.Fields(scanner.Text())
+			if len(parts) >= 2 {
+				ramKB := 0
+				fmt.Sscanf(parts[1], "%d", &ramKB)
+				totalRAM = fmt.Sprintf("%.2f GB", float64(ramKB)/1024/1024)
+			}
+		}
+		file.Close()
+	}
+	fmt.Printf("[RAM] %s\n", totalRAM)
+
+	// 3. Audit Kernel (The "Brain" version)
+	kernel := "Unknown"
+	if dat, err := os.ReadFile("/proc/sys/kernel/osrelease"); err == nil {
+		kernel = strings.TrimSpace(string(dat))
+	}
+	fmt.Printf("[OS ] Linux Kernel %s\n", kernel)
+
+	// ... Keep your existing [STATUS: GOLD/BRONZE] logic here ...
 }
 ```
-
----
 
 ## Expanding the Mission to the Edge
 
