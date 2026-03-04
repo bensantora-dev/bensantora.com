@@ -6,8 +6,15 @@
     <description>Recent content on Ben Santora</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 20 Jan 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 04 Mar 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Binary Resurrection</title>
+      <link>http://localhost:1313/posts/lazarus-engine/</link>
+      <pubDate>Wed, 04 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/lazarus-engine/</guid>
+      <description>Binary Resurrection: Why I&amp;rsquo;m Using Static Go Tooling to Save 15-Year-Old PCs By Ben Santora | Tags: #LINUX #OPEN-SOURCE #GO #RESOURCEFUL-COMPUTING #RIGHT-TO-REPAIR #EDGE-COMPUTING #SUSTAINABILITY&#xA;The Hook: The Landfill Crisis is a Software Problem We are witnessing a global ecological disaster disguised as &amp;ldquo;innovation.&amp;rdquo; Billions of perfectly functional PCs and edge devices are sitting in closets or heading to landfills—not because their hardware has failed, but because modern software has abandoned them.</description>
+    </item>
     <item>
       <title>FFmpeg Mandelbrot Generator</title>
       <link>http://localhost:1313/posts/ffmpeg-mandelbrot/</link>
