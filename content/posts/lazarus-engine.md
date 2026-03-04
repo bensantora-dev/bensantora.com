@@ -1,161 +1,109 @@
----
-title: "Binary Resurrection"
-date: 2026-03-04
----
+# Lazarus Engine
 
-# Binary Resurrection: Why I'm Using Static Go Tooling to Save 15-Year-Old PCs
+> *Software should serve the machine, not the other way around.*
 
-**By Ben Santora** | Tags: `#LINUX` `#OPEN-SOURCE` `#GO` `#RESOURCEFUL-COMPUTING` `#RIGHT-TO-REPAIR` `#EDGE-COMPUTING` `#SUSTAINABILITY`
+A zero-dependency hardware audit tool built in Go. Designed to run on machines that modern tooling has abandoned — broken package managers, ancient kernels, ARM routers, discarded NAS boxes. If it runs Linux, this runs on it.
 
 ---
 
-## The Hook: The Landfill Crisis is a Software Problem
+## Why This Exists
 
-We are witnessing a global ecological disaster disguised as "innovation." Billions of perfectly functional PCs and edge devices are sitting in closets or heading to landfills—not because their hardware has failed, but because modern software has abandoned them.
+Modern software creates a **Dependency Death Spiral**: you can't run the app without the library, you can't update the library without the OS, and you can't update the OS without buying new hardware. Billions of functional machines end up in landfills because of software rot, not hardware failure.
 
-The industry has moved toward a "dependency-first" architecture. Modern distributions are bloated with background daemons, and pre-compiled binaries target only the latest instruction sets. This creates a Dependency Death Spiral: you can't run the software without the library, you can't update the library without the OS, and you can't update the OS without buying new hardware.
-
-I refuse to accept this. My mission is **Resourceful Computing**: maximizing the utility of existing hardware through minimalism. This article documents the **Lazarus Engine**, a framework built to prove that a 10-year-old machine isn't "obsolete"—it's just waiting for software that respects the metal.
+The Lazarus Engine breaks that chain. A single static binary, no shared libraries, no runtime dependencies — just direct syscalls to the Linux kernel.
 
 ---
 
-## The Technical Thesis: Why Go for Restoration?
+## What It Does
 
-To revive a machine with a broken package manager or an ancient kernel, you need software that is resilient and self-contained.
+`lazarus-audit` probes the system and classifies hardware into one of three tiers:
 
-Most "lightweight" tools still rely on shared C libraries (glibc). If the system's glibc is from 2014, a binary compiled in 2026 simply won't run. Go solves this through **Static Linking**. By disabling cgo, we produce a single ELF binary that makes direct syscalls to the Linux kernel. It carries its own "heart and lungs."
+| Status | Criteria | Recommended Path |
+|--------|----------|-----------------|
+| 🥇 GOLD | AES + AVX (or ARM equivalents) | Full modern FOSS stack |
+| 🥈 SILVER | AES only | Most tasks; AVX workloads may struggle |
+| 🥉 BRONZE | Neither | Minimalist tools: ffplay, aplay, busybox |
+
+**Sample output:**
+```
+--- [LAZARUS ENGINE: HARDWARE AUDIT] ---
+[CPU] Intel(R) Core(TM) i5-3320M CPU @ 2.60GHz (amd64)
+[RAM] 3.73 GB
+[OS ] Linux Kernel 5.15.0-91-generic
+----------------------------------------
+[STATUS] GOLD: Modern instruction sets detected.
+[ACTION] This machine can handle modern FOSS effortlessly.
+```
 
 ---
 
-## The "Extreme Shrink" Build Pipeline
+## Build
 
-On hardware with 2GB of RAM or a mechanical hard drive, binary size and disk I/O matter. To achieve a high **Proof of Usefulness** score, I utilize an optimization pipeline that strips every unnecessary byte while maintaining structural integrity.
+### Standard build
 ```bash
-# CGO_ENABLED=0: Disables dynamic linking to C libraries
-# -s -w: Strips symbol tables and debug information
-# upx --brute: Compresses the binary for minimal disk footprint
+go build -o lazarus-audit
+```
 
+### Extreme Shrink (recommended for constrained hardware)
+```bash
+# Strips symbol tables, debug info, and dynamic library linkage
 CGO_ENABLED=0 go build -ldflags="-s -w" -trimpath -o lazarus-audit
+
+# Optional: compress binary further (requires upx)
 upx --brute lazarus-audit
 ```
----
 
-## The "Lazarus-Audit" Logic
+The shrink pipeline targets machines with 2GB RAM or mechanical hard drives where binary size and disk I/O genuinely matter. Typical output: **~1.2 MB**.
 
-The first step in restoration is an honest audit. `lazarus-audit` is a zero-dependency tool that probes the CPU's internal registers to determine what I call **Instruction Set Supremacy**.
+### Cross-compilation (edge devices)
+```bash
+# ARM (Raspberry Pi, old routers)
+GOOS=linux GOARCH=arm GOARM=6 CGO_ENABLED=0 go build -ldflags="-s -w" -o lazarus-audit-arm
 
-### Core Implementation (Go)
-```go
-package main
+# ARM64 (NAS boxes, newer SBCs)
+GOOS=linux GOARCH=arm64 CGO_ENABLED=0 go build -ldflags="-s -w" -o lazarus-audit-arm64
 
-import (
-	"bufio"
-	"fmt"
-	"os"
-	"runtime"
-	"strings"
-)
-
-func main() {
-	fmt.Println("--- [LAZARUS ENGINE: HARDWARE AUDIT] ---")
-
-	// 1. Audit CPU Architecture & Model
-	cpuModel := "Unknown CPU"
-	hasAES := false
-	hasAVX := false
-
-	if file, err := os.Open("/proc/cpuinfo"); err == nil {
-		scanner := bufio.NewScanner(file)
-		for scanner.Scan() {
-			line := scanner.Text()
-			// Get the Model Name
-			if strings.HasPrefix(line, "model name") {
-				cpuModel = strings.TrimSpace(strings.Split(line, ":")[1])
-			}
-			// Check for the "Instruction Flags" (Your original logic)
-			if strings.HasPrefix(line, "flags") {
-				if strings.Contains(line, "aes") {
-					hasAES = true
-				}
-				if strings.Contains(line, "avx") {
-					hasAVX = true
-				}
-			}
-		}
-		file.Close()
-	}
-	fmt.Printf("[CPU] %s (%s)\n", cpuModel, runtime.GOARCH)
-
-	// 2. Audit RAM
-	totalRAM := "Unknown"
-	if file, err := os.Open("/proc/meminfo"); err == nil {
-		scanner := bufio.NewScanner(file)
-		if scanner.Scan() {
-			parts := strings.Fields(scanner.Text())
-			if len(parts) >= 2 {
-				var ramKB int64
-				fmt.Sscanf(parts[1], "%d", &ramKB)
-				totalRAM = fmt.Sprintf("%.2f GB", float64(ramKB)/1024/1024)
-			}
-		}
-		file.Close()
-	}
-	fmt.Printf("[RAM] %s\n", totalRAM)
-
-	// 3. Audit Kernel
-	kernel := "Unknown"
-	if dat, err := os.ReadFile("/proc/sys/kernel/osrelease"); err == nil {
-		kernel = strings.TrimSpace(string(dat))
-	}
-	fmt.Printf("[OS ] Linux Kernel %s\n", kernel)
-
-	// 4. THE CLASSIFICATION (The Core of your Mission)
-	fmt.Println("----------------------------------------")
-	if hasAES && hasAVX {
-		fmt.Println("[STATUS] GOLD: Modern Instruction sets detected.")
-		fmt.Println("[ACTION] This machine can handle modern FOSS effortlessly.")
-	} else {
-		fmt.Println("[STATUS] BRONZE: Legacy Hardware detected.")
-		fmt.Println("[ACTION] Stick to minimalist tools (ffplay, aplay, busybox).")
-	}
-}
+# MIPS (many consumer routers)
+GOOS=linux GOARCH=mips GOMIPS=softfloat CGO_ENABLED=0 go build -ldflags="-s -w" -o lazarus-audit-mips
 ```
-## Expanding the Mission to the Edge
-
-Resourceful Computing isn't limited to laptops. By leveraging Go's cross-compilation, the Lazarus Engine can target **Edge Devices**—old routers, discarded NAS boxes, and early IoT hubs running on ARM or MIPS. These devices are often orphaned by manufacturers, but with a static binary, they can be repurposed as VPN gateways or ad-blockers, staying out of the waste stream.
 
 ---
 
-## Resourceful vs. Bloated: The Benchmarks
+## Architecture Support
 
-*Tested on a 2012 ThinkPad (Intel Core i5, 4GB RAM):*
+The audit correctly handles both x86/x86_64 and ARM/MIPS flag formats:
 
-| Metric            | Standard Distro Approach | Lazarus Engine (Go) |
-|-------------------|--------------------------|---------------------|
-| Dependency Count  | 100+ Shared Libs         | 0 (Static)          |
-| Binary Size       | 45 MB+                   | ~1.2 MB             |
-| Idle RAM Usage    | ~180 MB                  | ~4 MB               |
-| Boot-to-App Time  | 12.4s                    | 0.3s                |
+- **x86/x86_64** — reads `flags` field from `/proc/cpuinfo`
+- **ARM/MIPS** — reads `Features` field; maps `aes-ce`/`pmull` → AES tier, `asimdhp`/`sve` → AVX tier
+
+This means the GOLD/SILVER/BRONZE classification is meaningful on the edge devices this tool is designed for, not just on desktops.
 
 ---
 
-## Conclusion: The Path Forward
+## The Mission: Resourceful Computing
 
-The Lazarus Engine isn't just a set of scripts; it's a protest against planned obsolescence. By using Go on the **Bare-Metal**, we reclaim the right to use the hardware we already own.
+This tool is part of a larger framework. The three-step restoration process:
 
----
+1. **Audit** — run `lazarus-audit` to know what you're working with
+2. **Strip** — remove the desktop environment; reclaim RAM
+3. **Restore** — deploy static binaries to turn "junk" into a dedicated media server, VPN gateway, or network ad-blocker
 
-## Call to Action
-
-1. **Audit:** Run the Go script above on the oldest Linux box or edge device in your closet.
-2. **Strip:** Remove the Desktop Environment and the Package Manager.
-3. **Restore:** Use static binaries to turn "junk" into a dedicated media server or network bridge.
-
-*Software should serve the machine, not the other way around.*
+Full writeup: [Binary Resurrection](https://github.com/bensantora-tech/lazarus-engine)
 
 ---
 
-## Links & Evidence
+## Requirements
 
-- **GitHub Repository:** [github.com/bensantora-tech/lazarus-engine](https://github.com/bensantora-tech/lazarus-engine)
-- **Pre-compiled Binaries:** [Lazarus Engine v1.0.0 Releases](#)
+- Linux (any kernel version with `/proc` filesystem)
+- Go 1.18+ to build
+- No runtime dependencies
+
+---
+
+## License
+
+GPLV-3
+
+## Author
+
+Ben Santora
