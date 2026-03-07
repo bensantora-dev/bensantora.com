@@ -24,37 +24,37 @@
     </item>
     <item>
       <title>Is an AI Model Software? – A Low-Level Technical View</title>
-      <link>http://localhost:1313/posts/2026-01-10-is-an-ai-model-software/</link>
+      <link>http://localhost:1313/posts/is-an-ai-model-software/</link>
       <pubDate>Thu, 12 Feb 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/2026-01-10-is-an-ai-model-software/</guid>
+      <guid>http://localhost:1313/posts/is-an-ai-model-software/</guid>
       <description>first published on dev.to - thanks to that community for their interest and contributions&#xA;Is an AI Model Software?&#xA;AI is so intertwined with software these days that it seems like an odd question. When we speak casually, we answer “yes”: large‑language models (LLMs) and small‑language models (SLMs) are built by engineers, shipped through software pipelines, and are run by programs. Yet at the level of a systems programmer, compiler writer, or hardware designer, the question is far from trivial.</description>
     </item>
     <item>
       <title>LLMs - A Prompt to Encourage Hallucination</title>
-      <link>http://localhost:1313/posts/2026-01-10-llms-hallucination-prompt/</link>
+      <link>http://localhost:1313/posts/llms-hallucination-prompt/</link>
       <pubDate>Thu, 12 Feb 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/2026-01-10-llms-hallucination-prompt/</guid>
+      <guid>http://localhost:1313/posts/llms-hallucination-prompt/</guid>
       <description>first published on dev.to - thanks to that community for their interest and contributions&#xA;LLMs - A Prompt to Encourage Hallucination&#xA;Continuing my testing of LLMs in order to identify their strengths and weaknesses, how they reason and other traits unique to each model.&#xA;My latest round of testing involved something different - trying to encourage them to hallucinate.&#xA;Large Language Models (LLMs) are adept at synthesizing information, but they don’t just stop when they hit the edge of their training data — they will often improvise.</description>
     </item>
     <item>
       <title>LLMs - Four Tests to Challenge Reasoning</title>
-      <link>http://localhost:1313/posts/2026-01-10-llms-four-tests-to-challenge-reasoning/</link>
+      <link>http://localhost:1313/posts/llms-four-tests-to-challenge-reasoning/</link>
       <pubDate>Thu, 12 Feb 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/2026-01-10-llms-four-tests-to-challenge-reasoning/</guid>
+      <guid>http://localhost:1313/posts/llms-four-tests-to-challenge-reasoning/</guid>
       <description>first published on dev.to - thanks to that community for their interest and contributions&#xA;LLMs - Four Tests to Challenge Reasoning&#xA;Here are four challenges I&amp;rsquo;ve used that have revealed some very interesting patterns when given to the current crop of online LLMs. Consider them as diagnostic tools you can deploy that will prove to you that AI models do not all think in the same way.&#xA;These challenges are carefully designed to probe different methods of reasoning and target different types of weaknesses.</description>
     </item>
     <item>
       <title>LLMs - Solvers vs Judges</title>
-      <link>http://localhost:1313/posts/2026-01-10-llms-solvers-vs-judges/</link>
+      <link>http://localhost:1313/posts/llms-solvers-vs-judges/</link>
       <pubDate>Thu, 12 Feb 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/2026-01-10-llms-solvers-vs-judges/</guid>
-      <description>first published on dev.to - thanks to that community for their interest and contributions&#xA;LLMs - Solvers vs Judges&#xA;This is a continuation of what I discovered and shared in my article - SLMs, LLMs and a Devious Logic Puzzle. It reveals something very crucial to know when working with SLMs and LLMs - whether they lean toward being helpful (solvers) or whether they lean toward sound logic and correctness (judges).</description>
+      <guid>http://localhost:1313/posts/llms-solvers-vs-judges/</guid>
+      <description>first published on dev.to - thanks to that community for their interest and contributions&#xA;LLMs - Solvers vs Judges&#xA;This is a continuation of my SLM and LLM testing as first documnented in the article: SLMs, LLMs and a Devious Logic Puzzle Test. It reveals something very crucial to know when working with SLMs and LLMs - whether they lean toward being helpful (solvers) or whether they lean toward sound logic and correctness (judges).</description>
     </item>
     <item>
       <title>SLMs, LLMs and a Devious Logic Puzzle Test</title>
-      <link>http://localhost:1313/posts/2026-01-10-slms-llms-logic-puzzle/</link>
+      <link>http://localhost:1313/posts/slms-llms-logic-puzzle/</link>
       <pubDate>Thu, 12 Feb 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/2026-01-10-slms-llms-logic-puzzle/</guid>
+      <guid>http://localhost:1313/posts/slms-llms-logic-puzzle/</guid>
       <description>first published on dev.to - thanks to that community for their interest and contributions&#xA;SLMs, LLMs and a Devious Logic Puzzle Test&#xA;Recently I was putting together some methods to test the performance of an SLM (small language model) I had running in &amp;ldquo;CPU-only&amp;rdquo; mode on my PC.&#xA;PC Specs: 2021 HP ENVY 17m-ch0xxx • CPU: 11th Gen Intel Core i7-1165G7 (4 cores, 8 threads), up to 4.7 GHz • RAM: 12 GiB (reported as 11 GiB usable), sufficient for 4B–7B quantized LLMs.</description>
     </item>
     <item>

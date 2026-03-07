@@ -62,7 +62,7 @@
     <loc>http://localhost:1313/tags/inference-engines/</loc>
     <lastmod>2026-02-12T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/2026-01-10-is-an-ai-model-software/</loc>
+    <loc>http://localhost:1313/posts/is-an-ai-model-software/</loc>
     <lastmod>2026-02-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/kimi/</loc>
@@ -71,13 +71,13 @@
     <loc>http://localhost:1313/tags/llms/</loc>
     <lastmod>2026-02-12T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/2026-01-10-llms-hallucination-prompt/</loc>
+    <loc>http://localhost:1313/posts/llms-hallucination-prompt/</loc>
     <lastmod>2026-02-12T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/2026-01-10-llms-four-tests-to-challenge-reasoning/</loc>
+    <loc>http://localhost:1313/posts/llms-four-tests-to-challenge-reasoning/</loc>
     <lastmod>2026-02-12T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/2026-01-10-llms-solvers-vs-judges/</loc>
+    <loc>http://localhost:1313/posts/llms-solvers-vs-judges/</loc>
     <lastmod>2026-02-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/logic-puzzles/</loc>
@@ -95,7 +95,7 @@
     <loc>http://localhost:1313/tags/slms/</loc>
     <lastmod>2026-02-12T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/2026-01-10-slms-llms-logic-puzzle/</loc>
+    <loc>http://localhost:1313/posts/slms-llms-logic-puzzle/</loc>
     <lastmod>2026-02-12T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/software-engineering/</loc>
