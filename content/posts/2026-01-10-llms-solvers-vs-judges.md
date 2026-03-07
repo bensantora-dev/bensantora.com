@@ -11,7 +11,7 @@ tags: ["LLMs", "AI testing", "logic puzzles", "reasoning", "KIMI", "ChatGPT", "G
 
 LLMs - Solvers vs Judges 
 
-This is a continuation of what I discovered and shared in my article - SLMs, LLMs and a Devious Logic Puzzle. It reveals something very crucial to know when working with SLMs and LLMs - whether they lean toward being helpful (solvers) or whether they lean toward sound logic and correctness (judges).
+This is a continuation of my SLM and LLM testing using logic puzzles. It reveals something very crucial to know when working with SLMs and LLMs - whether they lean toward being helpful (solvers) or whether they lean toward sound logic and correctness (judges).
 
 Below is a compact logic puzzle with an embedded contradiction. It is written to look routine and solvable, but a careful reader or model should conclude that it cannot be solved as stated.
 
