@@ -5,8 +5,6 @@ description: "Linux has shipped a built-in network chaos simulator since kernel 
 tags: ["linux", "networking", "testing", "devops", "go"]
 ---
 
-# Your Linux Kernel Has a Built-In Chaos Engine — And Nobody Told You
-
 Your program works perfectly on your machine. Fast responses, clean connections, zero errors. You ship it.
 
 Then someone runs it from a hotel WiFi in rural Ohio. Or from Brazil over a satellite link. Or from a corporate network that silently drops one in twenty packets. Your program falls apart — timeouts unhandled, no retry logic, error messages that say "something went wrong" and nothing else.

@@ -6,8 +6,22 @@
     <description>Recent content in Posts on Ben Santora</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 01 Mar 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 07 Mar 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>newtop — A Lean System Monitor Written in Go</title>
+      <link>http://localhost:1313/posts/newtop-linux-system-monitor-go/</link>
+      <pubDate>Sat, 07 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/newtop-linux-system-monitor-go/</guid>
+      <description>top ships on every Linux system. htop is better. But both carry more history than features — ncurses dependencies, config files, compiled C that assumes things about your system. I wanted something simpler: a single binary, no external packages, reads /proc and /sys directly, renders to the terminal and gets out of the way.&#xA;That&amp;rsquo;s newtop.&#xA;Install git clone https://github.com/bensantora-tech/newtop cd newtop go build -o newtop . ./newtop Or if you have Go installed and want it in your path:</description>
+    </item>
+    <item>
+      <title>Your Linux Kernel Has a Built-In Chaos Engine — And Nobody Told You</title>
+      <link>http://localhost:1313/posts/your-kernel-has-a-chaos-engine/</link>
+      <pubDate>Sat, 07 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/your-kernel-has-a-chaos-engine/</guid>
+      <description>Your program works perfectly on your machine. Fast responses, clean connections, zero errors. You ship it.&#xA;Then someone runs it from a hotel WiFi in rural Ohio. Or from Brazil over a satellite link. Or from a corporate network that silently drops one in twenty packets. Your program falls apart — timeouts unhandled, no retry logic, error messages that say &amp;ldquo;something went wrong&amp;rdquo; and nothing else.&#xA;You never saw it coming because your test environment was perfect.</description>
+    </item>
     <item>
       <title>Truth vs. Helpfulness: A Logic Puzzle Trap for AI</title>
       <link>http://localhost:1313/posts/truth-vs-helpfulness-a-logic-puzzle-trap-for-ai/</link>

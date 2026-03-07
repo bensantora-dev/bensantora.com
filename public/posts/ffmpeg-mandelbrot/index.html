@@ -386,6 +386,7 @@ pre code { color: var(--text); background: none; }
 <li><code>-crf 23</code> — standard x264 quality</li>
 </ul>
 <p>Watch the fps counter in the terminal. On a CPU-only machine <code>maxiter=100</code> keeps it moving. Drop to <code>50</code> if it&rsquo;s still slow. Raise to <code>500+</code> for more fractal detail at the cost of render time.</p>
+<p><code>maxiter</code> is the iteration ceiling per pixel — how hard it tries to determine whether a point escapes to infinity. At low zoom levels it barely matters. As the animation zooms deeper into the fractal boundary, low <code>maxiter</code> causes the edges to go flat and blocky. If you&rsquo;re rendering a zoom sequence, raise it proportionally.</p>
 <hr>
 <h2 id="play-it-directly--no-file-written">Play It Directly — No File Written</h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ffplay -f lavfi <span style="color:#e6db74">&#34;mandelbrot=size=640x360:rate=24:maxiter=100&#34;</span>
@@ -396,9 +397,10 @@ pre code { color: var(--text); background: none; }
 </span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -vf <span style="color:#e6db74">&#34;hue=h=t*20&#34;</span> -t <span style="color:#ae81ff">30</span> -c:v libx264 -crf <span style="color:#ae81ff">23</span> mandelbrot_color.mp4
 </span></span></code></pre></div><p><code>hue=h=t*20</code> rotates the color spectrum over time as a filtergraph applied on top of the raw lavfi output. <code>t</code> is elapsed time in seconds.</p>
 <hr>
-<h2 id="watch-it-as-a-spectrum--fft-view">Watch It as a Spectrum — FFT View</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ffplay -showmode <span style="color:#ae81ff">1</span> mandelbrot.mp4
-</span></span></code></pre></div><p>Displays the frequency content of the audio track. No audio here, but use <code>-showmode 1</code> on any music file to see sound as physics.</p>
+<h2 id="zoom-into-the-boundary">Zoom Into the Boundary</h2>
+<p>The default animation zooms toward a fixed point. You can control where it zooms and how fast:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ffplay -f lavfi <span style="color:#e6db74">&#34;mandelbrot=size=640x360:rate=24:maxiter=500:start_x=-0.7435:start_y=0.1314:start_scale=3.0:end_scale=0.001&#34;</span>
+</span></span></code></pre></div><p><code>start_x</code> and <code>start_y</code> set the target coordinate in the complex plane. <code>start_scale</code> and <code>end_scale</code> control zoom range — smaller <code>end_scale</code> means deeper zoom. The boundary region around <code>-0.7435, 0.1314</code> is a classic target: high detail, long zoom runway.</p>
 <hr>
 <h2 id="the-bigger-point">The Bigger Point</h2>
 <p>FFmpeg&rsquo;s lavfi system includes other sources worth exploring:</p>
@@ -421,7 +423,7 @@ pre code { color: var(--text); background: none; }
     <li><a href="#generate-a-mandelbrot-and-save-it">Generate a Mandelbrot and Save It</a></li>
     <li><a href="#play-it-directly--no-file-written">Play It Directly — No File Written</a></li>
     <li><a href="#add-color-rotation">Add Color Rotation</a></li>
-    <li><a href="#watch-it-as-a-spectrum--fft-view">Watch It as a Spectrum — FFT View</a></li>
+    <li><a href="#zoom-into-the-boundary">Zoom Into the Boundary</a></li>
     <li><a href="#the-bigger-point">The Bigger Point</a></li>
   </ul>
 </nav>
