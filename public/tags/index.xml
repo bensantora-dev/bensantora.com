@@ -6,20 +6,174 @@
     <description>Recent content in Tags on Ben Santora</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 20 Jan 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 01 Mar 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AI</title>
+      <link>http://localhost:1313/tags/ai/</link>
+      <pubDate>Sun, 01 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/ai/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Benchmark</title>
+      <link>http://localhost:1313/tags/benchmark/</link>
+      <pubDate>Sun, 01 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/benchmark/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>LLM</title>
+      <link>http://localhost:1313/tags/llm/</link>
+      <pubDate>Sun, 01 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/llm/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Logic</title>
+      <link>http://localhost:1313/tags/logic/</link>
+      <pubDate>Sun, 01 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/logic/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Reasoning</title>
+      <link>http://localhost:1313/tags/reasoning/</link>
+      <pubDate>Sun, 01 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/reasoning/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>SLM</title>
+      <link>http://localhost:1313/tags/slm/</link>
+      <pubDate>Sun, 01 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/slm/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Bare-Metal</title>
       <link>http://localhost:1313/tags/bare-metal/</link>
-      <pubDate>Tue, 20 Jan 2026 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/tags/bare-metal/</guid>
       <description></description>
     </item>
     <item>
       <title>Cpu</title>
       <link>http://localhost:1313/tags/cpu/</link>
-      <pubDate>Tue, 20 Jan 2026 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/tags/cpu/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Linux</title>
+      <link>http://localhost:1313/tags/linux/</link>
+      <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/linux/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>AI Testing</title>
+      <link>http://localhost:1313/tags/ai-testing/</link>
+      <pubDate>Thu, 12 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/ai-testing/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Cerebras</title>
+      <link>http://localhost:1313/tags/cerebras/</link>
+      <pubDate>Thu, 12 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/cerebras/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>ChatGPT</title>
+      <link>http://localhost:1313/tags/chatgpt/</link>
+      <pubDate>Thu, 12 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/chatgpt/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Gemini</title>
+      <link>http://localhost:1313/tags/gemini/</link>
+      <pubDate>Thu, 12 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/gemini/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Hallucination</title>
+      <link>http://localhost:1313/tags/hallucination/</link>
+      <pubDate>Thu, 12 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/hallucination/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Inference Engines</title>
+      <link>http://localhost:1313/tags/inference-engines/</link>
+      <pubDate>Thu, 12 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/inference-engines/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>KIMI</title>
+      <link>http://localhost:1313/tags/kimi/</link>
+      <pubDate>Thu, 12 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/kimi/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>LLMs</title>
+      <link>http://localhost:1313/tags/llms/</link>
+      <pubDate>Thu, 12 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/llms/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Logic Puzzles</title>
+      <link>http://localhost:1313/tags/logic-puzzles/</link>
+      <pubDate>Thu, 12 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/logic-puzzles/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Machine Learning</title>
+      <link>http://localhost:1313/tags/machine-learning/</link>
+      <pubDate>Thu, 12 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/machine-learning/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Neural Networks</title>
+      <link>http://localhost:1313/tags/neural-networks/</link>
+      <pubDate>Thu, 12 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/neural-networks/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Qwen</title>
+      <link>http://localhost:1313/tags/qwen/</link>
+      <pubDate>Thu, 12 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/qwen/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>SLMs</title>
+      <link>http://localhost:1313/tags/slms/</link>
+      <pubDate>Thu, 12 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/slms/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Software Engineering</title>
+      <link>http://localhost:1313/tags/software-engineering/</link>
+      <pubDate>Thu, 12 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/software-engineering/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Spatial Reasoning</title>
+      <link>http://localhost:1313/tags/spatial-reasoning/</link>
+      <pubDate>Thu, 12 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/spatial-reasoning/</guid>
       <description></description>
     </item>
     <item>
@@ -27,20 +181,6 @@
       <link>http://localhost:1313/tags/ffmpeg/</link>
       <pubDate>Tue, 20 Jan 2026 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/tags/ffmpeg/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Linux</title>
-      <link>http://localhost:1313/tags/linux/</link>
-      <pubDate>Tue, 20 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/linux/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Llm</title>
-      <link>http://localhost:1313/tags/llm/</link>
-      <pubDate>Tue, 20 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/llm/</guid>
       <description></description>
     </item>
     <item>

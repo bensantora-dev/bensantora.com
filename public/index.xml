@@ -6,21 +6,63 @@
     <description>Recent content on Ben Santora</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 20 Jan 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 01 Mar 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Truth vs. Helpfulness: A Logic Puzzle Trap for AI</title>
+      <link>http://localhost:1313/posts/truth-vs-helpfulness-a-logic-puzzle-trap-for-ai/</link>
+      <pubDate>Sun, 01 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/truth-vs-helpfulness-a-logic-puzzle-trap-for-ai/</guid>
+      <description>first published on dev.to - thanks to that community for their interest and contributions&#xA;This article covers a benchmark test I ran using a deliberately unsolvable logic puzzle, comparing how a local SLM and several online LLMs handle a built-in contradiction.&#xA;Recently I was putting together some methods to test the performance of an SLM (small language model) I had running in &amp;ldquo;CPU-only&amp;rdquo; mode on my PC.&#xA;PC Specs 2021 HP ENVY 17m-ch0xxx CPU: 11th Gen Intel Core i7-1165G7 (4 cores, 8 threads), up to 4.</description>
+    </item>
+    <item>
+      <title>llama.cpp Bare-Metal on Linux</title>
+      <link>http://localhost:1313/posts/llama-cpp-bare-metal-linux/</link>
+      <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/llama-cpp-bare-metal-linux/</guid>
+      <description>Compiling llama.cpp from source with native CPU optimizations eliminates wrapper overhead and maximizes inference performance on Linux systems without dedicated GPUs. This guide walks through every step — from auditing your hardware to running your first local conversation.&#xA;What Is the Difference Between llama.cpp and Ollama? llama.cpp is the inference engine: a raw C++ implementation of the Llama architecture that performs the core matrix math of AI inference directly on your hardware.</description>
+    </item>
+    <item>
+      <title>Is an AI Model Software? – A Low-Level Technical View</title>
+      <link>http://localhost:1313/posts/2026-01-10-is-an-ai-model-software/</link>
+      <pubDate>Thu, 12 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-01-10-is-an-ai-model-software/</guid>
+      <description>first published on dev.to - thanks to that community for their interest and contributions&#xA;Is an AI Model Software?&#xA;AI is so intertwined with software these days that it seems like an odd question. When we speak casually, we answer “yes”: large‑language models (LLMs) and small‑language models (SLMs) are built by engineers, shipped through software pipelines, and are run by programs. Yet at the level of a systems programmer, compiler writer, or hardware designer, the question is far from trivial.</description>
+    </item>
+    <item>
+      <title>LLMs - A Prompt to Encourage Hallucination</title>
+      <link>http://localhost:1313/posts/2026-01-10-llms-hallucination-prompt/</link>
+      <pubDate>Thu, 12 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-01-10-llms-hallucination-prompt/</guid>
+      <description>first published on dev.to - thanks to that community for their interest and contributions&#xA;LLMs - A Prompt to Encourage Hallucination&#xA;Continuing my testing of LLMs in order to identify their strengths and weaknesses, how they reason and other traits unique to each model.&#xA;My latest round of testing involved something different - trying to encourage them to hallucinate.&#xA;Large Language Models (LLMs) are adept at synthesizing information, but they don’t just stop when they hit the edge of their training data — they will often improvise.</description>
+    </item>
+    <item>
+      <title>LLMs - Four Tests to Challenge Reasoning</title>
+      <link>http://localhost:1313/posts/2026-01-10-llms-four-tests-to-challenge-reasoning/</link>
+      <pubDate>Thu, 12 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-01-10-llms-four-tests-to-challenge-reasoning/</guid>
+      <description>first published on dev.to - thanks to that community for their interest and contributions&#xA;LLMs - Four Tests to Challenge Reasoning&#xA;Here are four challenges I&amp;rsquo;ve used that have revealed some very interesting patterns when given to the current crop of online LLMs. Consider them as diagnostic tools you can deploy that will prove to you that AI models do not all think in the same way.&#xA;These challenges are carefully designed to probe different methods of reasoning and target different types of weaknesses.</description>
+    </item>
+    <item>
+      <title>LLMs - Solvers vs Judges</title>
+      <link>http://localhost:1313/posts/2026-01-10-llms-solvers-vs-judges/</link>
+      <pubDate>Thu, 12 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-01-10-llms-solvers-vs-judges/</guid>
+      <description>first published on dev.to - thanks to that community for their interest and contributions&#xA;LLMs - Solvers vs Judges&#xA;This is a continuation of what I discovered and shared in my article - SLMs, LLMs and a Devious Logic Puzzle. It reveals something very crucial to know when working with SLMs and LLMs - whether they lean toward being helpful (solvers) or whether they lean toward sound logic and correctness (judges).</description>
+    </item>
+    <item>
+      <title>SLMs, LLMs and a Devious Logic Puzzle Test</title>
+      <link>http://localhost:1313/posts/2026-01-10-slms-llms-logic-puzzle/</link>
+      <pubDate>Thu, 12 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/2026-01-10-slms-llms-logic-puzzle/</guid>
+      <description>first published on dev.to - thanks to that community for their interest and contributions&#xA;SLMs, LLMs and a Devious Logic Puzzle Test&#xA;Recently I was putting together some methods to test the performance of an SLM (small language model) I had running in &amp;ldquo;CPU-only&amp;rdquo; mode on my PC.&#xA;PC Specs: 2021 HP ENVY 17m-ch0xxx • CPU: 11th Gen Intel Core i7-1165G7 (4 cores, 8 threads), up to 4.7 GHz • RAM: 12 GiB (reported as 11 GiB usable), sufficient for 4B–7B quantized LLMs.</description>
+    </item>
     <item>
       <title>FFmpeg Has a Mandelbrot Generator Built In</title>
       <link>http://localhost:1313/posts/ffmpeg-mandelbrot/</link>
       <pubDate>Tue, 20 Jan 2026 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/posts/ffmpeg-mandelbrot/</guid>
       <description>Most people use FFmpeg to convert video files. Few know it ships with a virtual device system called lavfi that generates video from pure math — no input file, no external tools, nothing to install. It&amp;rsquo;s already on your system.&#xA;Check Your FFmpeg Install ffmpeg -version If FFmpeg is installed, lavfi is included. That&amp;rsquo;s all you need.&#xA;Generate a Mandelbrot and Save It ffmpeg -f lavfi -i &amp;#34;mandelbrot=size=640x360:rate=24:maxiter=100&amp;#34; -t 30 -c:v libx264 -crf 23 mandelbrot.</description>
-    </item>
-    <item>
-      <title>llama.cpp Bare-Metal on Linux</title>
-      <link>http://localhost:1313/posts/llama-cpp-bare-metal-linux/</link>
-      <pubDate>Tue, 20 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/llama-cpp-bare-metal-linux/</guid>
-      <description>Compiling llama.cpp from source with native CPU optimizations eliminates wrapper overhead and maximizes inference performance on Linux systems without dedicated GPUs. This guide walks through every step — from auditing your hardware to running your first local conversation.&#xA;What Is the Difference Between llama.cpp and Ollama? llama.cpp is the inference engine: a raw C++ implementation of the Llama architecture that performs the core matrix math of AI inference directly on your hardware.</description>
     </item>
   </channel>
 </rss>

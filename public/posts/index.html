@@ -143,7 +143,7 @@ body {
     padding: 0;
     margin: 0;
 }
-#TableOfContents li { margin: 0; }
+#TableOfContents li { margin: 0 0 6px; }
 #TableOfContents a {
     display: block;
     color: var(--dim);
@@ -343,13 +343,91 @@ pre code { color: var(--text); background: none; }
     <ul class="card-list">
         
         <li class="card">
+            <div class="card-title"><a href="/posts/truth-vs-helpfulness-a-logic-puzzle-trap-for-ai/">Truth vs. Helpfulness: A Logic Puzzle Trap for AI</a></div>
+            <p>A benchmark test using a deliberately unsolvable logic puzzle reveals how SLMs and LLMs handle contradiction — and whether they prioritize truth or helpfulness.</p>
+            <div class="card-meta">
+                March 1, 2026
+                
+                <div class="post-tags" style="margin-top: 6px;">
+                    <a href="/tags/ai/" class="tag">AI</a><a href="/tags/llm/" class="tag">LLM</a><a href="/tags/slm/" class="tag">SLM</a><a href="/tags/reasoning/" class="tag">reasoning</a><a href="/tags/benchmark/" class="tag">benchmark</a><a href="/tags/logic/" class="tag">logic</a>
+                </div>
+                
+            </div>
+        </li>
+        
+        <li class="card">
             <div class="card-title"><a href="/posts/llama-cpp-bare-metal-linux/">llama.cpp Bare-Metal on Linux</a></div>
             <p>A step-by-step guide to compiling llama.cpp from source with native AVX-512 optimizations, bypassing Ollama for faster local LLM inference without a GPU. Covers hardware requirements, AVX-512 detection, source compilation, model quantization, and command-line operation.</p>
             <div class="card-meta">
-                January 20, 2026
+                February 20, 2026
                 
                 <div class="post-tags" style="margin-top: 6px;">
                     <a href="/tags/linux/" class="tag">linux</a><a href="/tags/llm/" class="tag">llm</a><a href="/tags/bare-metal/" class="tag">bare-metal</a><a href="/tags/cpu/" class="tag">cpu</a>
+                </div>
+                
+            </div>
+        </li>
+        
+        <li class="card">
+            <div class="card-title"><a href="/posts/2026-01-10-slms-llms-logic-puzzle/">SLMs, LLMs and a Devious Logic Puzzle Test</a></div>
+            <p>Testing a poison-pill logic puzzle on a local SLM and online LLMs reveals critical differences in reasoning integrity—from variable leakage in Qwen3-4b to helpful lying in Gemini Flash.</p>
+            <div class="card-meta">
+                February 12, 2026
+                
+                <div class="post-tags" style="margin-top: 6px;">
+                    <a href="/tags/slms/" class="tag">SLMs</a><a href="/tags/llms/" class="tag">LLMs</a><a href="/tags/ai-testing/" class="tag">AI testing</a><a href="/tags/logic-puzzles/" class="tag">logic puzzles</a><a href="/tags/reasoning/" class="tag">reasoning</a><a href="/tags/qwen/" class="tag">Qwen</a><a href="/tags/gemini/" class="tag">Gemini</a><a href="/tags/kimi/" class="tag">KIMI</a>
+                </div>
+                
+            </div>
+        </li>
+        
+        <li class="card">
+            <div class="card-title"><a href="/posts/2026-01-10-llms-solvers-vs-judges/">LLMs - Solvers vs Judges</a></div>
+            <p>Do LLMs solve unsolvable puzzles or flag the contradiction? Testing ChatGPT, Gemini, KIMI, and others with an impossible logic puzzle reveals whether models prioritize helpfulness over truth.</p>
+            <div class="card-meta">
+                February 12, 2026
+                
+                <div class="post-tags" style="margin-top: 6px;">
+                    <a href="/tags/llms/" class="tag">LLMs</a><a href="/tags/ai-testing/" class="tag">AI testing</a><a href="/tags/logic-puzzles/" class="tag">logic puzzles</a><a href="/tags/reasoning/" class="tag">reasoning</a><a href="/tags/kimi/" class="tag">KIMI</a><a href="/tags/chatgpt/" class="tag">ChatGPT</a><a href="/tags/gemini/" class="tag">Gemini</a>
+                </div>
+                
+            </div>
+        </li>
+        
+        <li class="card">
+            <div class="card-title"><a href="/posts/2026-01-10-llms-four-tests-to-challenge-reasoning/">LLMs - Four Tests to Challenge Reasoning</a></div>
+            <p>Four diagnostic prompts that reveal how AI models handle contradictions, impossible geometry, temporal paradoxes, and infinite sets—tested across ChatGPT, Gemini, KIMI, Cerebras, and more.</p>
+            <div class="card-meta">
+                February 12, 2026
+                
+                <div class="post-tags" style="margin-top: 6px;">
+                    <a href="/tags/llms/" class="tag">LLMs</a><a href="/tags/ai-testing/" class="tag">AI testing</a><a href="/tags/reasoning/" class="tag">reasoning</a><a href="/tags/logic-puzzles/" class="tag">logic puzzles</a><a href="/tags/spatial-reasoning/" class="tag">spatial reasoning</a><a href="/tags/chatgpt/" class="tag">ChatGPT</a><a href="/tags/gemini/" class="tag">Gemini</a><a href="/tags/kimi/" class="tag">KIMI</a>
+                </div>
+                
+            </div>
+        </li>
+        
+        <li class="card">
+            <div class="card-title"><a href="/posts/2026-01-10-llms-hallucination-prompt/">LLMs - A Prompt to Encourage Hallucination</a></div>
+            <p>What happens when you prompt an LLM with invented history? Testing ChatGPT, Gemini, Cerebras Inference, and KIMI with a fabricated historical prompt reveals how each model handles fictional facts.</p>
+            <div class="card-meta">
+                February 12, 2026
+                
+                <div class="post-tags" style="margin-top: 6px;">
+                    <a href="/tags/llms/" class="tag">LLMs</a><a href="/tags/ai-testing/" class="tag">AI testing</a><a href="/tags/hallucination/" class="tag">hallucination</a><a href="/tags/chatgpt/" class="tag">ChatGPT</a><a href="/tags/gemini/" class="tag">Gemini</a><a href="/tags/kimi/" class="tag">KIMI</a><a href="/tags/cerebras/" class="tag">Cerebras</a>
+                </div>
+                
+            </div>
+        </li>
+        
+        <li class="card">
+            <div class="card-title"><a href="/posts/2026-01-10-is-an-ai-model-software/">Is an AI Model Software? – A Low-Level Technical View</a></div>
+            <p>A technical analysis of whether AI models like LLMs and SLMs qualify as software—examining weight files, inference engines, and the data-vs-code boundary from a systems programming perspective.</p>
+            <div class="card-meta">
+                February 12, 2026
+                
+                <div class="post-tags" style="margin-top: 6px;">
+                    <a href="/tags/llms/" class="tag">LLMs</a><a href="/tags/slms/" class="tag">SLMs</a><a href="/tags/ai/" class="tag">AI</a><a href="/tags/software-engineering/" class="tag">software engineering</a><a href="/tags/machine-learning/" class="tag">machine learning</a><a href="/tags/neural-networks/" class="tag">neural networks</a><a href="/tags/inference-engines/" class="tag">inference engines</a>
                 </div>
                 
             </div>
